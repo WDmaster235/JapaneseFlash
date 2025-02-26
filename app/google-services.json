@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "369944858255",
+    "project_id": "japaneseflash-98781",
+    "storage_bucket": "japaneseflash-98781.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369944858255:android:f09cfaa85fd03da0afaafa",
+        "android_client_info": {
+          "package_name": "com.example.japaneseflash.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIHN_izKoIP_7oTbeAcTBvs6kuzQFvslM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

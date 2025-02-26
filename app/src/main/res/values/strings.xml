@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">JapaneseFlash</string>
+    <string name="jp_flash">Japanese\nFlash</string>
+    <string name="label_login">Login</string>
+    <string name="label_sign_up">Sign up</string>
+    <string name="label_welcome">Welcome</string>
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="label_create_account">Create\nan\naccount</string>
+    <string name="label_name">Name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

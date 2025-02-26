@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <RelativeLayout
+        android:id="@+id/kanji_square"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/square_background"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- Kanji TextView -->
+        <TextView
+            android:id="@+id/kanji_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:gravity="center"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+    <!-- Meaning TextView -->
+    <TextView
+        android:id="@+id/meaning_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:gravity="center" />
+</LinearLayout>
