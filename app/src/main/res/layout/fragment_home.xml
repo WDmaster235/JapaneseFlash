@@ -1,21 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_kanji_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to Kanji Menu"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="20dp" />
+    <!-- Yellow Gradient Background -->
+    <View
+        android:id="@+id/backgroundView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/yellow_gradient_background" />
 
-    <Button
-        android:id="@+id/btn_saved_cards"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to Saved Cards"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="20dp" />
+    <!-- Content Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_kanji_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/yellowAccent"
+            android:text="Go to Kanji Menu"
+            android:textColor="@android:color/black"
+            android:elevation="4dp"
+            app:cornerRadius="16dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_saved_cards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/yellowAccent"
+            android:text="Go to Saved Cards"
+            android:textColor="@android:color/black"
+            android:elevation="4dp"
+            app:cornerRadius="16dp" />
+
+    </LinearLayout>
 </FrameLayout>

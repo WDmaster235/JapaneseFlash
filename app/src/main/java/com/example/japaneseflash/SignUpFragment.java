@@ -19,7 +19,7 @@ public class SignUpFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private EditText emailInput, passwordInput, confirmPasswordInput;
-    private Button signUpButton;
+    private Button loginButton, signUpButton;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -41,6 +41,9 @@ public class SignUpFragment extends Fragment {
         confirmPasswordInput = view.findViewById(R.id.confirm_password_input);
         signUpButton = view.findViewById(R.id.signup_button);
 
+        loginButton = view.findViewById(R.id.login_button);
+
+        loginButton.setOnClickListener(v -> navigateToLogin());
         // Set up button listener
         signUpButton.setOnClickListener(v -> signUpUser());
 
@@ -92,5 +95,11 @@ public class SignUpFragment extends Fragment {
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+    private void navigateToLogin() {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new LoginFragment())
+                .addToBackStack(null)
+                .commit();
     }
 }

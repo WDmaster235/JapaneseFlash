@@ -1,35 +1,101 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <EditText
-        android:id="@+id/email_input"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/password_input"
-        android:hint="Password"
-        android:inputType="textPassword"
+    <TextView
+        android:id="@+id/login_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Japanese Flash"
+        android:textSize="40sp"
+        android:textColor="#000"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="login to continue"
+        android:textSize="18sp" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_input"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="Email">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_input"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        app:passwordToggleEnabled="true">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+
+        android:layout_width="373dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="5dp"
+        android:background="#00000000"
+        android:elevation="0dp"
+        android:text="Forgot your password?" />
 
     <Button
         android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:background="@color/black"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
 
-    <Button
-        android:id="@+id/signup_button"
-        android:text="Sign Up"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:layout_width="338dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/signup_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Don't have an account?"
+            android:textColor="@android:color/black" />
+
+        <Button
+            android:id="@+id/signup_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="#00000000"
+            android:text="Sign up Now!"
+            android:textColor="#ffa500" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,21 +1,34 @@
 package com.example.japaneseflash;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private EditText emailInput, passwordInput;
-    private Button loginButton, signUpButton;
+    private Button loginButton, signupButton;
+
+    // Remove signUpButton and use a TextView instead
+    private TextView signUpText;
+    private TextView loginText; // if needed
 
     public LoginFragment() {
         // Required empty public constructor
@@ -27,25 +40,60 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         mAuth = FirebaseAuth.getInstance();
-        emailInput = view.findViewById(R.id.email_input);
-        passwordInput = view.findViewById(R.id.password_input);
+
+        // Get the TextInputLayout and then retrieve the EditText
+        TextInputLayout emailLayout = view.findViewById(R.id.email_input);
+        emailInput = emailLayout.getEditText();
+
+        TextInputLayout passwordLayout = view.findViewById(R.id.password_input);
+        passwordInput = passwordLayout.getEditText();
+
         loginButton = view.findViewById(R.id.login_button);
-        signUpButton = view.findViewById(R.id.signup_button);
+        signupButton = view.findViewById(R.id.signup_button);
 
         loginButton.setOnClickListener(v -> loginUser());
-        signUpButton.setOnClickListener(v -> navigateToSignUp());
+        signupButton.setOnClickListener(v -> navigateToSignUp());
+
         return view;
+    }
+
+    private void setupSignUpText() {
+        String text = signUpText.getText().toString();
+        SpannableString spannableString = new SpannableString(text);
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                navigateToSignUp();
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.parseColor("#FFA500")); // Set to orange color
+                ds.setUnderlineText(false); // Remove underline if desired
+            }
+        };
+
+        int start = text.indexOf("Sign Up!");
+        if (start != -1) {
+            int end = start + "Sign Up!".length();
+            spannableString.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        signUpText.setText(spannableString);
+        signUpText.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void loginUser() {
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
 
-        if (TextUtils.isEmpty(email)) {
+        if (email.isEmpty()) {
             emailInput.setError("Email is required");
             return;
         }
-        if (TextUtils.isEmpty(password)) {
+        if (password.isEmpty()) {
             passwordInput.setError("Password is required");
             return;
         }
