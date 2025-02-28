@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
@@ -16,19 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment {
+
     private FirebaseAuth mAuth;
     private EditText emailInput, passwordInput;
     private Button loginButton, signupButton;
-
-    // Remove signUpButton and use a TextView instead
     private TextView signUpText;
-    private TextView loginText; // if needed
 
     public LoginFragment() {
         // Required empty public constructor
@@ -37,11 +35,12 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the fragment layout (ensure you have a fragment_login.xml layout file)
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         mAuth = FirebaseAuth.getInstance();
 
-        // Get the TextInputLayout and then retrieve the EditText
+        // Retrieve views from the layout
         TextInputLayout emailLayout = view.findViewById(R.id.email_input);
         emailInput = emailLayout.getEditText();
 
@@ -50,9 +49,12 @@ public class LoginFragment extends Fragment {
 
         loginButton = view.findViewById(R.id.login_button);
         signupButton = view.findViewById(R.id.signup_button);
+        signUpText = view.findViewById(R.id.signup_text);
 
+        // Set click listeners
         loginButton.setOnClickListener(v -> loginUser());
         signupButton.setOnClickListener(v -> navigateToSignUp());
+        setupSignUpText();
 
         return view;
     }
@@ -70,8 +72,8 @@ public class LoginFragment extends Fragment {
             @Override
             public void updateDrawState(@NonNull TextPaint ds) {
                 super.updateDrawState(ds);
-                ds.setColor(Color.parseColor("#FFA500")); // Set to orange color
-                ds.setUnderlineText(false); // Remove underline if desired
+                ds.setColor(Color.parseColor("#FFA500")); // Set clickable text color to orange
+                ds.setUnderlineText(false);
             }
         };
 
@@ -89,11 +91,11 @@ public class LoginFragment extends Fragment {
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
 
-        if (email.isEmpty()) {
+        if (TextUtils.isEmpty(email)) {
             emailInput.setError("Email is required");
             return;
         }
-        if (password.isEmpty()) {
+        if (TextUtils.isEmpty(password)) {
             passwordInput.setError("Password is required");
             return;
         }
@@ -102,17 +104,17 @@ public class LoginFragment extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Login successful", Toast.LENGTH_SHORT).show();
                         navigateToHome();
                     } else {
-                        Toast.makeText(getActivity(), "Login failed: " + task.getException().getMessage(),
+                        Toast.makeText(getContext(), "Login failed: " + task.getException().getMessage(),
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     private void navigateToSignUp() {
-        // Replace with SignUpFragment (which you would similarly create)
+        // Replace this fragment with SignUpFragment
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new SignUpFragment())
                 .addToBackStack(null)
@@ -120,7 +122,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void navigateToHome() {
-        // Navigate to HomeFragment
+        // Replace this fragment with HomeFragment (or launch a HomeActivity if you prefer)
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new HomeFragment())
                 .commit();

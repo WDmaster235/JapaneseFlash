@@ -1,5 +1,6 @@
 package com.example.japaneseflash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -83,9 +84,10 @@ public class SignUpFragment extends Fragment {
                                 .addOnSuccessListener(aVoid -> {
                                     Toast.makeText(getContext(), "Sign up successful!", Toast.LENGTH_SHORT).show();
                                     // Navigate to the LoginFragment
-                                    getActivity().getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.fragment_container, new LoginFragment())
-                                            .commit();
+//                                    getActivity().getSupportFragmentManager().beginTransaction()
+//                                            .replace(R.id.fragment_container, new LoginFragment())
+//                                            .commit();
+
                                 })
                                 .addOnFailureListener(e -> {
                                     Toast.makeText(getContext(), "Failed to create user document.", Toast.LENGTH_SHORT).show();
@@ -98,8 +100,7 @@ public class SignUpFragment extends Fragment {
     }
     private void navigateToLogin() {
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new LoginFragment())
-                .addToBackStack(null)
-                .commit();
+                                           .replace(R.id.fragment_container, new LoginFragment())
+                                           .commit();
     }
 }
