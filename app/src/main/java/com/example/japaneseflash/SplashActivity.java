@@ -1,7 +1,7 @@
 package com.example.japaneseflash;
+
 import android.app.ActivityOptions;
 import android.util.Pair;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,24 +21,21 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Make the window fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
         topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
-
         image = findViewById(R.id.imageView);
         image.setAnimation(topAnim);
 
-
-        // Delay for a few seconds, then go to MainActivity
+        // Delay and then launch MainActivity with a shared element transition
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-
-            Pair[] pairs = new Pair[1];
-            pairs[0] = new Pair<ImageView, String>(image, "logo_image");
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this, pairs);
+            Pair pair = new Pair<>(image, "logo_image");
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this, pair);
             startActivity(intent, options.toBundle());
-
+            finish();
         }, SPLASH_TIMEOUT);
     }
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="confirm_new_password_input" type="id" />
+    <item name="reset_password_button" type="id" />
+    <item name="new_password_input" type="id" />
+    <item name="nav_saved_cards" type="id" />
+    <item name="nav_saved_cards1" type="id" />
+</resources>

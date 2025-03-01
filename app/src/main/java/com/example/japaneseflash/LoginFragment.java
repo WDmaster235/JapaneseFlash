@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -25,8 +26,9 @@ public class LoginFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private EditText emailInput, passwordInput;
-    private Button loginButton, signupButton;
+    private Button loginButton, signupButton, forgotPasswordButton;
     private TextView signUpText;
+    private ImageView splashImage; // This will be our shared element
 
     public LoginFragment() {
         // Required empty public constructor
@@ -35,7 +37,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the fragment layout (ensure you have a fragment_login.xml layout file)
+        // Inflate the fragment layout from fragment_login.xml
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         mAuth = FirebaseAuth.getInstance();
@@ -47,16 +49,27 @@ public class LoginFragment extends Fragment {
         TextInputLayout passwordLayout = view.findViewById(R.id.password_input);
         passwordInput = passwordLayout.getEditText();
 
+        forgotPasswordButton = view.findViewById(R.id.forgot_password_button);
         loginButton = view.findViewById(R.id.login_button);
         signupButton = view.findViewById(R.id.signup_button);
         signUpText = view.findViewById(R.id.signup_text);
+        splashImage = view.findViewById(R.id.imageView);
 
         // Set click listeners
         loginButton.setOnClickListener(v -> loginUser());
         signupButton.setOnClickListener(v -> navigateToSignUp());
+        forgotPasswordButton.setOnClickListener(v -> navigateToForgotPassword());
+
         setupSignUpText();
 
         return view;
+    }
+
+    // Postpone the enter transition until the layout is ready.
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        postponeEnterTransition();
+        view.post(() -> startPostponedEnterTransition());
     }
 
     private void setupSignUpText() {
@@ -114,7 +127,6 @@ public class LoginFragment extends Fragment {
     }
 
     private void navigateToSignUp() {
-        // Replace this fragment with SignUpFragment
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new SignUpFragment())
                 .addToBackStack(null)
@@ -122,9 +134,14 @@ public class LoginFragment extends Fragment {
     }
 
     private void navigateToHome() {
-        // Replace this fragment with HomeFragment (or launch a HomeActivity if you prefer)
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new HomeFragment())
+                .commit();
+    }
+
+    private void navigateToForgotPassword() {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new ChangePasswordFragment())
                 .commit();
     }
 }

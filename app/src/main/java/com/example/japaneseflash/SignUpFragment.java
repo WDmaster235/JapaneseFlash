@@ -1,6 +1,5 @@
 package com.example.japaneseflash;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,9 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
-
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -29,23 +27,32 @@ public class SignUpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the fragment layout
+        // Inflate the fragment layout from fragment_sign_up.xml
+
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
 
         // Initialize Firebase Auth and Firestore
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // Initialize UI elements
-        emailInput = view.findViewById(R.id.email_input);
-        passwordInput = view.findViewById(R.id.password_input);
-        confirmPasswordInput = view.findViewById(R.id.confirm_password_input);
+        // Retrieve the TextInputLayouts and then get the EditText from them
+        TextInputLayout emailLayout = view.findViewById(R.id.email_input);
+        emailInput = emailLayout.getEditText();
+
+        TextInputLayout passwordLayout = view.findViewById(R.id.password_input);
+        passwordInput = passwordLayout.getEditText();
+
+        TextInputLayout confirmPasswordLayout = view.findViewById(R.id.confirm_password_input);
+        confirmPasswordInput = confirmPasswordLayout.getEditText();
+
+        // Initialize Buttons
         signUpButton = view.findViewById(R.id.signup_button);
-
         loginButton = view.findViewById(R.id.login_button);
+        if (loginButton != null) {
+            loginButton.setOnClickListener(v -> navigateToLogin());
+        }
 
-        loginButton.setOnClickListener(v -> navigateToLogin());
-        // Set up button listener
+        // Set up the sign-up button listener
         signUpButton.setOnClickListener(v -> signUpUser());
 
         return view;
@@ -83,11 +90,10 @@ public class SignUpFragment extends Fragment {
                                 .set(user)
                                 .addOnSuccessListener(aVoid -> {
                                     Toast.makeText(getContext(), "Sign up successful!", Toast.LENGTH_SHORT).show();
-                                    // Navigate to the LoginFragment
-//                                    getActivity().getSupportFragmentManager().beginTransaction()
-//                                            .replace(R.id.fragment_container, new LoginFragment())
-//                                            .commit();
-
+                                    // Navigate back to the LoginFragment
+                                    getActivity().getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.fragment_container, new LoginFragment())
+                                            .commit();
                                 })
                                 .addOnFailureListener(e -> {
                                     Toast.makeText(getContext(), "Failed to create user document.", Toast.LENGTH_SHORT).show();
@@ -98,9 +104,10 @@ public class SignUpFragment extends Fragment {
                     }
                 });
     }
+
     private void navigateToLogin() {
         getActivity().getSupportFragmentManager().beginTransaction()
-                                           .replace(R.id.fragment_container, new LoginFragment())
-                                           .commit();
+                .replace(R.id.fragment_container, new LoginFragment())
+                .commit();
     }
 }
