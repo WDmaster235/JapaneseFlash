@@ -31,6 +31,7 @@ public class KanjiFlashcardFragment extends Fragment {
     private TextView kanjiTextView;
     private TextView meaningTextView;
     private List<String> kanjiList = new ArrayList<>();
+    private String category; // The API category suffix
 
     public KanjiFlashcardFragment() { }
 
@@ -43,6 +44,12 @@ public class KanjiFlashcardFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         kanjiTextView = view.findViewById(R.id.kanji_text);
         meaningTextView = view.findViewById(R.id.meaning_text);
+
+        // Retrieve the category from the Bundle (default to "joyo" if not provided)
+        Bundle bundle = getArguments();
+        category = (bundle != null && bundle.containsKey("CATEGORY"))
+                ? bundle.getString("CATEGORY")
+                : "joyo";
 
         loadKanjiList();
 
@@ -60,7 +67,8 @@ public class KanjiFlashcardFragment extends Fragment {
     }
 
     private void loadKanjiList() {
-        String url = "https://kanjiapi.dev/v1/kanji/joyo";
+        // Use the selected category for the API endpoint.
+        String url = "https://kanjiapi.dev/v1/kanji/" + category;
         new GetKanjiListTask().execute(url);
     }
 

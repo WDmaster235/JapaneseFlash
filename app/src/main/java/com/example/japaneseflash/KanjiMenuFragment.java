@@ -12,41 +12,40 @@ public class KanjiMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout you provided
         View view = inflater.inflate(R.layout.fragment_kanji_menu, container, false);
 
+        // Set up the listener for each button with the proper API category string.
         view.findViewById(R.id.joyokanji_button).setOnClickListener(v -> {
-            startFlashcardFragment("joyokanji");
+            startFlashcardFragment("joyo"); // Corresponds to /v1/kanji/joyo or jouyou kanji.
         });
-
         view.findViewById(R.id.grade1_button).setOnClickListener(v -> {
-            startFlashcardFragment("grade1");
+            startFlashcardFragment("grade-1"); // Grade 1 Kyōiku Kanji.
         });
-
-        view.findViewById(R.id.grade1_button).setOnClickListener(v -> {
-            startFlashcardFragment("grade2");
+        view.findViewById(R.id.grade2_button).setOnClickListener(v -> {
+            startFlashcardFragment("grade-2");
         });
-
-        view.findViewById(R.id.grade1_button).setOnClickListener(v -> {
-            startFlashcardFragment("grade3");
+        view.findViewById(R.id.grade3_button).setOnClickListener(v -> {
+            startFlashcardFragment("grade-3");
         });
-
-        view.findViewById(R.id.grade1_button).setOnClickListener(v -> {
-            startFlashcardFragment("grade4");
+        view.findViewById(R.id.grade4_button).setOnClickListener(v -> {
+            startFlashcardFragment("grade-4");
         });
-
-        view.findViewById(R.id.grade1_button).setOnClickListener(v -> {
-            startFlashcardFragment("grade5");
+        view.findViewById(R.id.grade5_button).setOnClickListener(v -> {
+            startFlashcardFragment("grade-5");
         });
-
-        view.findViewById(R.id.grade1_button).setOnClickListener(v -> {
-            startFlashcardFragment("grade6");
+        view.findViewById(R.id.grade6_button).setOnClickListener(v -> {
+            startFlashcardFragment("grade-6");
         });
-
-        // Similarly, set listeners for grade2_button, grade3_button, etc.
 
         return view;
     }
 
+    /**
+     * Starts the KanjiFlashcardFragment and passes the chosen category as an argument.
+     *
+     * @param category The API endpoint suffix for the selected Kanji category.
+     */
     private void startFlashcardFragment(String category) {
         Bundle bundle = new Bundle();
         bundle.putString("CATEGORY", category);

@@ -76,19 +76,23 @@ public class SavedCardsFragment extends Fragment {
         });
 
         // Set item click listener for RecyclerView
+        // In KanjiAdapter, within the setOnItemClickListener callback:
         kanjiAdapter.setOnItemClickListener(kanji -> {
             // When a Kanji square is clicked, navigate to KanjiDetailActivity
             Intent intent = new Intent(getActivity(), KanjiDetailActivity.class);
             intent.putExtra("KANJI", kanji.getCharacter());
             intent.putExtra("MEANINGS", kanji.getMeanings() != null
                     ? kanji.getMeanings().toArray(new String[0]) : new String[0]);
-            intent.putExtra("HIRAGANA", kanji.getOnReadings() != null
-                    ? kanji.getOnReadings().toArray(new String[0]) : new String[0]);
-            intent.putExtra("KATAKANA", kanji.getKunReadings() != null
+            // Use kun_readings for Hiragana (they are typically written in hiragana)
+            intent.putExtra("HIRAGANA", kanji.getKunReadings() != null
                     ? kanji.getKunReadings().toArray(new String[0]) : new String[0]);
+            // Use on_readings for Katakana (they are typically written in katakana)
+            intent.putExtra("KATAKANA", kanji.getOnReadings() != null
+                    ? kanji.getOnReadings().toArray(new String[0]) : new String[0]);
 
             startActivity(intent);
         });
+
     }
 
     private void searchKanji(String query) {
