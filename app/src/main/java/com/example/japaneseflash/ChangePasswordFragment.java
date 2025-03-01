@@ -12,15 +12,12 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class ChangePasswordFragment extends Fragment {
 
     private FirebaseAuth mAuth;
-    private EditText currentPasswordInput, newPasswordInput, confirmNewPasswordInput;
+    private EditText emailInput;
     private Button changePasswordButton;
 
     public ChangePasswordFragment() {
@@ -30,77 +27,32 @@ public class ChangePasswordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_change_password, container, false);
-
         mAuth = FirebaseAuth.getInstance();
 
-        // Retrieve the TextInputLayouts and get their EditTexts
-        TextInputLayout currentPasswordLayout = view.findViewById(R.id.current_password_input);
-        currentPasswordInput = currentPasswordLayout.getEditText();
-
-        TextInputLayout newPasswordLayout = view.findViewById(R.id.new_password_input);
-        newPasswordInput = newPasswordLayout.getEditText();
-
-        TextInputLayout confirmNewPasswordLayout = view.findViewById(R.id.confirm_new_password_input);
-        confirmNewPasswordInput = confirmNewPasswordLayout.getEditText();
+        TextInputLayout emailLayout = view.findViewById(R.id.email_input);
+        emailInput = emailLayout.getEditText();
 
         changePasswordButton = view.findViewById(R.id.change_password_button);
-        changePasswordButton.setOnClickListener(v -> changePassword());
+        changePasswordButton.setOnClickListener(v -> sendPasswordResetEmail());
 
         return view;
     }
 
-    private void changePassword() {
-        String currentPassword = currentPasswordInput.getText().toString().trim();
-        String newPassword = newPasswordInput.getText().toString().trim();
-        String confirmNewPassword = confirmNewPasswordInput.getText().toString().trim();
+    private void sendPasswordResetEmail() {
+        String email = emailInput.getText().toString().trim();
 
-        // Validate inputs
-        if (TextUtils.isEmpty(currentPassword)) {
-            currentPasswordInput.setError("Current password is required");
-            return;
-        }
-        if (TextUtils.isEmpty(newPassword)) {
-            newPasswordInput.setError("New password is required");
-            return;
-        }
-        if (!newPassword.equals(confirmNewPassword)) {
-            confirmNewPasswordInput.setError("Passwords do not match");
+        if (TextUtils.isEmpty(email)) {
+            emailInput.setError("Email is required");
             return;
         }
 
-        // Get the current user
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user == null) {
-            Toast.makeText(getContext(), "No user logged in", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Reauthenticate using the current password
-        String email = user.getEmail();
-        AuthCredential credential = EmailAuthProvider.getCredential(email, currentPassword);
-        user.reauthenticate(credential)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // If reauthentication is successful, update the password
-                        user.updatePassword(newPassword)
-                                .addOnCompleteListener(updateTask -> {
-                                    if (updateTask.isSuccessful()) {
-                                        Toast.makeText(getContext(), "Password changed successfully", Toast.LENGTH_SHORT).show();
-                                        // Optionally, navigate back to the LoginFragment or another screen
-                                        getActivity().getSupportFragmentManager().beginTransaction()
-                                                .replace(R.id.fragment_container, new LoginFragment())
-                                                .commit();
-                                    } else {
-                                        Toast.makeText(getContext(), "Password update failed: "
-                                                + updateTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    } else {
-                        Toast.makeText(getContext(), "Reauthentication failed: "
-                                + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(getContext(), "Password reset email sent", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Failed to send reset email: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

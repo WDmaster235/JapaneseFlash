@@ -17,12 +17,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Japanese Flash"
+        android:paddingLeft="5dp"
         android:textSize="32sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Learn japanese in a flash"
+        android:paddingLeft="5dp"
         android:textSize="19sp" />
 
 

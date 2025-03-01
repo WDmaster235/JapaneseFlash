@@ -40,5 +40,17 @@
             android:elevation="4dp"
             app:cornerRadius="16dp" />
 
+        <!-- New button for daily reminder -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_daily_reminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/yellowAccent"
+            android:text="Get daily reminder to learn"
+            android:textColor="@android:color/black"
+            android:elevation="4dp"
+            app:cornerRadius="16dp" />
+
     </LinearLayout>
 </FrameLayout>

@@ -1,5 +1,6 @@
 package com.example.japaneseflash;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -28,7 +28,6 @@ public class LoginFragment extends Fragment {
     private EditText emailInput, passwordInput;
     private Button loginButton, signupButton, forgotPasswordButton;
     private TextView signUpText;
-    private ImageView splashImage; // This will be our shared element
 
     public LoginFragment() {
         // Required empty public constructor
@@ -37,7 +36,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the fragment layout from fragment_login.xml
+        // Inflate the fragment layout (ensure you have a fragment_login.xml layout file)
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         mAuth = FirebaseAuth.getInstance();
@@ -49,27 +48,19 @@ public class LoginFragment extends Fragment {
         TextInputLayout passwordLayout = view.findViewById(R.id.password_input);
         passwordInput = passwordLayout.getEditText();
 
-        forgotPasswordButton = view.findViewById(R.id.forgot_password_button);
         loginButton = view.findViewById(R.id.login_button);
         signupButton = view.findViewById(R.id.signup_button);
         signUpText = view.findViewById(R.id.signup_text);
-        splashImage = view.findViewById(R.id.imageView);
+        forgotPasswordButton = view.findViewById(R.id.forgot_password_button);
 
         // Set click listeners
         loginButton.setOnClickListener(v -> loginUser());
         signupButton.setOnClickListener(v -> navigateToSignUp());
-        forgotPasswordButton.setOnClickListener(v -> navigateToForgotPassword());
+        forgotPasswordButton.setOnClickListener(v -> navigateToChangePassword());
 
         setupSignUpText();
 
         return view;
-    }
-
-    // Postpone the enter transition until the layout is ready.
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        postponeEnterTransition();
-        view.post(() -> startPostponedEnterTransition());
     }
 
     private void setupSignUpText() {
@@ -85,7 +76,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void updateDrawState(@NonNull TextPaint ds) {
                 super.updateDrawState(ds);
-                ds.setColor(Color.parseColor("#FFA500")); // Set clickable text color to orange
+                ds.setColor(Color.parseColor("#FFA500"));
                 ds.setUnderlineText(false);
             }
         };
@@ -139,9 +130,10 @@ public class LoginFragment extends Fragment {
                 .commit();
     }
 
-    private void navigateToForgotPassword() {
+    private void navigateToChangePassword() {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new ChangePasswordFragment())
                 .commit();
     }
+
 }

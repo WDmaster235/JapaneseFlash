@@ -2,6 +2,7 @@ package com.example.japaneseflash;
 
 import android.os.Bundle;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -135,4 +136,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             moveTaskToBack(true);
         }
     }
+    @Override
+    protected void onDestroy() {
+        // Avoid logging out during configuration changes (e.g. rotation)
+        if (!isChangingConfigurations()) {
+            // Sign out the user when the app is closing
+            FirebaseAuth.getInstance().signOut();
+            Log.d("MainActivity2", "User logged out because app is closing.");
+        }
+        super.onDestroy();
+    }
+
 }
