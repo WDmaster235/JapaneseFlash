@@ -6,72 +6,76 @@
     android:layout_height="match_parent"
     android:background="@drawable/yellow_gradient_background">
 
-    <!-- Card 1 (bottom) -->
+    <!-- Kanji Menu Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_kanji_menu"
-        android:layout_width="200dp"
-        android:layout_height="120dp"
+        android:layout_width="240dp"
+        android:layout_height="140dp"
         android:layout_gravity="center"
-        android:rotation="70"
-        android:translationX="-60dp"
-        android:translationY="-30dp"
-        android:text="Go to Kanji Menu"
+        android:translationX="-100dp"
+        android:translationY="70dp"
+        android:text="Kanji Menu"
+        android:textSize="30sp"
         android:textColor="@android:color/black"
         android:backgroundTint="@color/purple_200"
-        app:cornerRadius="16dp"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconTint="@android:color/black" />
+        app:cornerRadius="24dp"
+        android:elevation="8dp"
+        android:rotation="65"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
 
-    <!-- Card 2 -->
+    <!-- Saved Cards Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_saved_cards"
-        android:layout_width="200dp"
-        android:layout_height="120dp"
+        android:layout_width="240dp"
+        android:layout_height="140dp"
         android:layout_gravity="center"
-        android:rotation="70"
-        android:translationX="-20dp"
-        android:translationY="-10dp"
-        android:text="Go to Saved Cards"
+        android:translationX="-30dp"
+        android:translationY="40dp"
+        android:text="Saved Cards"
+        android:textSize="30sp"
         android:textColor="@android:color/black"
         android:backgroundTint="@color/teal_200"
-        app:cornerRadius="16dp"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconTint="@android:color/black" />
+        app:cornerRadius="24dp"
+        android:elevation="8dp"
+        android:rotation="80"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
 
-    <!-- Card 3 -->
+    <!-- Daily Reminder Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_daily_reminder"
-        android:layout_width="200dp"
-        android:layout_height="120dp"
+        android:layout_width="240dp"
+        android:layout_height="140dp"
         android:layout_gravity="center"
-        android:rotation="70"
-        android:translationX="20dp"
-        android:translationY="10dp"
+        android:translationX="30dp"
+        android:translationY="40dp"
         android:text="Daily Reminder"
+        android:textSize="30sp"
         android:textColor="@android:color/black"
         android:backgroundTint="@color/yellowAccent"
-        app:cornerRadius="16dp"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconTint="@android:color/black" />
+        app:cornerRadius="24dp"
+        android:elevation="8dp"
+        android:rotation="-80"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
 
-    <!-- Card 4 (top) -->
+    <!-- About Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_about"
-        android:layout_width="200dp"
-        android:layout_height="120dp"
+        android:layout_width="240dp"
+        android:layout_height="140dp"
         android:layout_gravity="center"
-        android:rotation="70"
-        android:translationX="60dp"
-        android:translationY="30dp"
+        android:translationX="100dp"
+        android:translationY="70dp"
         android:text="About Kanji"
+        android:textSize="30sp"
         android:textColor="@android:color/black"
         android:backgroundTint="@color/red"
-        app:cornerRadius="16dp"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconTint="@android:color/black" />
+        app:cornerRadius="24dp"
+        android:elevation="8dp"
+        android:rotation="-65"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
 
 </FrameLayout>
