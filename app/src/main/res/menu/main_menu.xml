@@ -8,8 +8,8 @@
             android:title="Home"
             android:icon="@drawable/home_icon" />
         <item
-            android:id="@+id/nav_kanji_letters"
-            android:title="Kanji Letters"
+            android:id="@+id/nav_kanji_menu"
+            android:title="Kanji Menu"
             android:icon="@drawable/kanji_letters_icon" />
     </group>
 

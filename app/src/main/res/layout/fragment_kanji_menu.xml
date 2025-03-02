@@ -1,58 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/kanji_menu_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="#FFF8E1"
     android:gravity="center"
+    android:orientation="vertical"
     android:padding="20dp">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/joyokanji_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/yellowAccent"
+        android:elevation="4dp"
         android:text="Jouyou Kanji"
-        android:layout_marginTop="20dp" />
+        android:textColor="@android:color/black"
+        app:cornerRadius="16dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/grade1_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/yellowAccent"
+        android:elevation="4dp"
         android:text="Grade 1"
-        android:layout_marginTop="20dp" />
+        android:textColor="@android:color/black"
+        app:cornerRadius="16dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/grade2_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/yellowAccent"
+        android:elevation="4dp"
         android:text="Grade 2"
-        android:layout_marginTop="20dp" />
+        android:textColor="@android:color/black"
+        app:cornerRadius="16dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/grade3_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/yellowAccent"
+        android:elevation="4dp"
         android:text="Grade 3"
-        android:layout_marginTop="20dp" />
+        android:textColor="@android:color/black"
+        app:cornerRadius="16dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/grade4_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/yellowAccent"
+        android:elevation="4dp"
         android:text="Grade 4"
-        android:layout_marginTop="20dp" />
+        android:textColor="@android:color/black"
+        app:cornerRadius="16dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/grade5_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/yellowAccent"
+        android:elevation="4dp"
         android:text="Grade 5"
-        android:layout_marginTop="20dp" />
+        android:textColor="@android:color/black"
+        app:cornerRadius="16dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/grade6_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/yellowAccent"
+        android:elevation="4dp"
         android:text="Grade 6"
-        android:layout_marginTop="20dp" />
+        android:textColor="@android:color/black"
+        app:cornerRadius="16dp" />
 
 </LinearLayout>

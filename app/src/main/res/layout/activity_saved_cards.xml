@@ -1,16 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/saved_cards_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#FFF8E1"
+    android:padding="8dp">
+
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="Search meaning..." />
+        android:queryHint="Search meaning..."
+        android:iconifiedByDefault="false"
+        android:background="@drawable/search_background"
+        android:layout_marginBottom="16dp" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/kanji_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="4dp" />
+
 </LinearLayout>

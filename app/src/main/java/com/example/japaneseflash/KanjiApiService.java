@@ -18,6 +18,8 @@ public interface KanjiApiService {
     // Endpoint to get Kyōiku Kanji list
     @GET("v1/kanji/kyouiku")
     Call<List<String>> getKyouikuKanji();
+
+    // Endpoints for readings
     @GET("v1/kanji/{character}/hiragana")
     Call<List<String>> getHiraganaReadings(@Path("character") String character);
 

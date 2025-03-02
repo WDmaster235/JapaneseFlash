@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
-
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -18,7 +16,7 @@ public class ChangePasswordFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private EditText emailInput;
-    private Button changePasswordButton;
+    private Button changePasswordButton, backToLoginButton;
 
     public ChangePasswordFragment() {
         // Required empty public constructor
@@ -36,17 +34,18 @@ public class ChangePasswordFragment extends Fragment {
         changePasswordButton = view.findViewById(R.id.change_password_button);
         changePasswordButton.setOnClickListener(v -> sendPasswordResetEmail());
 
+        backToLoginButton = view.findViewById(R.id.back_to_login_button);
+        backToLoginButton.setOnClickListener(v -> navigateToLogin());
+
         return view;
     }
 
     private void sendPasswordResetEmail() {
         String email = emailInput.getText().toString().trim();
-
         if (TextUtils.isEmpty(email)) {
             emailInput.setError("Email is required");
             return;
         }
-
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(getContext(), "Password reset email sent", Toast.LENGTH_SHORT).show();
@@ -54,5 +53,12 @@ public class ChangePasswordFragment extends Fragment {
                 Toast.makeText(getContext(), "Failed to send reset email: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void navigateToLogin() {
+        // Navigate to LoginFragment
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new LoginFragment())
+                .commit();
     }
 }

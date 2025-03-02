@@ -1,56 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/yellow_gradient_background">
 
-    <!-- Yellow Gradient Background -->
-    <View
-        android:id="@+id/backgroundView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/yellow_gradient_background" />
+    <!-- Card 1 (bottom) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_kanji_menu"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:rotation="70"
+        android:translationX="-60dp"
+        android:translationY="-30dp"
+        android:text="Go to Kanji Menu"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@color/purple_200"
+        app:cornerRadius="16dp"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp"
+        app:iconTint="@android:color/black" />
 
-    <!-- Content Container -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="16dp">
+    <!-- Card 2 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_saved_cards"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:rotation="70"
+        android:translationX="-20dp"
+        android:translationY="-10dp"
+        android:text="Go to Saved Cards"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@color/teal_200"
+        app:cornerRadius="16dp"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp"
+        app:iconTint="@android:color/black" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_kanji_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/yellowAccent"
-            android:text="Go to Kanji Menu"
-            android:textColor="@android:color/black"
-            android:elevation="4dp"
-            app:cornerRadius="16dp" />
+    <!-- Card 3 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_daily_reminder"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:rotation="70"
+        android:translationX="20dp"
+        android:translationY="10dp"
+        android:text="Daily Reminder"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@color/yellowAccent"
+        app:cornerRadius="16dp"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp"
+        app:iconTint="@android:color/black" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_saved_cards"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/yellowAccent"
-            android:text="Go to Saved Cards"
-            android:textColor="@android:color/black"
-            android:elevation="4dp"
-            app:cornerRadius="16dp" />
+    <!-- Card 4 (top) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_about"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:rotation="70"
+        android:translationX="60dp"
+        android:translationY="30dp"
+        android:text="About Kanji"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@color/red"
+        app:cornerRadius="16dp"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp"
+        app:iconTint="@android:color/black" />
 
-        <!-- New button for daily reminder -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_daily_reminder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/yellowAccent"
-            android:text="Get daily reminder to learn"
-            android:textColor="@android:color/black"
-            android:elevation="4dp"
-            app:cornerRadius="16dp" />
-
-    </LinearLayout>
 </FrameLayout>

@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Basic Colors -->
     <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Blues -->
     <color name="blue_200">#90caf9</color>
     <color name="blue_500">#2196f3</color>
     <color name="blue_700">#1976d2</color>
     <color name="blue_dark">#004ba0</color>
+
+    <!-- Yellows -->
     <color name="yellowAccent">#FFEB3B</color>
     <color name="yellowAccent2">#FFEB5B</color>
 
+    <!-- Additional Colors -->
+    <color name="purple_200">#BB86FC</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="red">#F44336</color>
 </resources>

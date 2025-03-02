@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import java.util.List;
 
 public class KanjiAdapter extends RecyclerView.Adapter<KanjiAdapter.KanjiViewHolder> {
@@ -20,7 +19,7 @@ public class KanjiAdapter extends RecyclerView.Adapter<KanjiAdapter.KanjiViewHol
 
     public KanjiAdapter(List<Kanji> kanjiList, KanjiApiService apiService) {
         this.kanjiList = kanjiList;
-        this.apiService = apiService; // Initialize the API service
+        this.apiService = apiService;
     }
 
     @Override
@@ -33,14 +32,14 @@ public class KanjiAdapter extends RecyclerView.Adapter<KanjiAdapter.KanjiViewHol
     public void onBindViewHolder(KanjiViewHolder holder, int position) {
         Kanji kanji = kanjiList.get(position);
         holder.kanjiText.setText(kanji.getCharacter());
-        holder.meaningText.setText(kanji.getMeanings().get(0)); // Assuming the first meaning is displayed
+        // Display the first meaning as a preview
+        holder.meaningText.setText(kanji.getMeanings().get(0));
 
-        // Fetch and display Hiragana and Katakana readings when the Kanji item is clicked
+        // When a Kanji square is clicked, pass the Kanji data to the listener.
         holder.kanjiSquare.setOnClickListener(v -> {
             if (onItemClickListener != null) {
-                onItemClickListener.onItemClick(kanji); // Pass the Kanji data to the listener
-
-                // Fetch Hiragana and Katakana readings asynchronously
+                onItemClickListener.onItemClick(kanji);
+                // Optionally fetch readings asynchronously.
                 fetchReadings(kanji);
             }
         });
@@ -56,45 +55,41 @@ public class KanjiAdapter extends RecyclerView.Adapter<KanjiAdapter.KanjiViewHol
     }
 
     private void fetchReadings(Kanji kanji) {
-        // Fetch Hiragana readings for the selected Kanji
+        // Fetch Hiragana readings (using the API's hiragana endpoint)
         Call<List<String>> hiraganaCall = apiService.getHiraganaReadings(kanji.getCharacter());
         hiraganaCall.enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<String> hiraganaReadings = response.body();
-                    // Update the Kanji object with Hiragana readings
-                    kanji.setHiraganaReadings(hiraganaReadings);
+                    // Store as kun_readings (typically written in hiragana)
+                    kanji.setKunReadings(response.body());
                 }
             }
-
             @Override
             public void onFailure(Call<List<String>> call, Throwable t) {
-                // Handle failure to fetch Hiragana readings
+                // Handle failure if needed
             }
         });
 
-        // Fetch Katakana readings for the selected Kanji
+        // Fetch Katakana readings (using the API's katakana endpoint)
         Call<List<String>> katakanaCall = apiService.getKatakanaReadings(kanji.getCharacter());
         katakanaCall.enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<String> katakanaReadings = response.body();
-                    // Update the Kanji object with Katakana readings
-                    kanji.setKatakanaReadings(katakanaReadings);
+                    // Store as on_readings (typically written in katakana)
+                    kanji.setOnReadings(response.body());
                 }
             }
-
             @Override
             public void onFailure(Call<List<String>> call, Throwable t) {
-                // Handle failure to fetch Katakana readings
+                // Handle failure if needed
             }
         });
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Kanji kanji); // Method to be called when a Kanji square is clicked
+        void onItemClick(Kanji kanji);
     }
 
     public static class KanjiViewHolder extends RecyclerView.ViewHolder {
@@ -106,7 +101,7 @@ public class KanjiAdapter extends RecyclerView.Adapter<KanjiAdapter.KanjiViewHol
             super(itemView);
             kanjiText = itemView.findViewById(R.id.kanji_text);
             meaningText = itemView.findViewById(R.id.meaning_text);
-            kanjiSquare = itemView.findViewById(R.id.kanji_square); // Reference to the square
+            kanjiSquare = itemView.findViewById(R.id.kanji_square);
         }
     }
 }
