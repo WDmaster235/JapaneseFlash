@@ -1,5 +1,8 @@
 package com.example.japaneseflash;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.transition.TransitionInflater;
 import android.view.MenuItem;
@@ -9,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -23,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+    private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawerLayout,
                 toolbar,
                 R.string.navigation_drawer_open,   // defined in strings.xml
-                R.string.navigation_drawer_close);   // defined in strings.xml
+                R.string.navigation_drawer_close);  // defined in strings.xml
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
@@ -83,6 +88,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         };
+
+        // Request POST_NOTIFICATIONS permission on Android 13+.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_REQUEST_CODE);
+            }
+        }
     }
 
     @Override
@@ -136,4 +150,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted; notifications will work.
+            } else {
+                // Permission denied; you might want to disable notification-related features or warn the user.
+            }
+        }
+    }
 }

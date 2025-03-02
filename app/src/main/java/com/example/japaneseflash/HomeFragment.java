@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
+
+import java.util.Calendar;
 
 public class HomeFragment extends Fragment {
 
@@ -87,7 +90,7 @@ public class HomeFragment extends Fragment {
             if (currentActiveCard != null) {
                 resetCard(currentActiveCard);
             }
-            // Raise the new card to a fixed position: X = 0dp, Y = dpToPx(200),
+            // Raise the new card to a fixed position: X = 0, Y = dpToPx(-200),
             // and rotate it to 0 degrees.
             moveCardAndRotateTo(card, 0f, dpToPx(-200), 0f);
             currentActiveCard = card;
@@ -150,7 +153,18 @@ public class HomeFragment extends Fragment {
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        long triggerAtMillis = System.currentTimeMillis() + 5000;
+        // Calculate next 00:54 trigger time
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 1);
+        calendar.set(Calendar.MINUTE, 36);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        long triggerAtMillis = calendar.getTimeInMillis();
+
+        Log.d("HomeFragment", "Scheduling alarm for: " + calendar.getTime().toString());
 
         try {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
@@ -158,7 +172,7 @@ public class HomeFragment extends Fragment {
             alarmManager.set(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
         }
 
-        Toast.makeText(getActivity(), "Daily reminder set (fires every 5 seconds)", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Daily reminder set for 00:54", Toast.LENGTH_SHORT).show();
     }
 
     /**

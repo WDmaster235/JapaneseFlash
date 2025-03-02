@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/about_container"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/kanji_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFE0">
+    android:padding="16dp"
+    android:background="#FDF6E3">
 
-    <!-- Add additional UI elements here if needed -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <!-- Title -->
+        <TextView
+            android:id="@+id/kanji_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kanji"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:gravity="center"
+            android:paddingBottom="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:shadowColor="#AA000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"/>
+
+        <!-- Body Text -->
+        <TextView
+            android:id="@+id/kanji_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kanji (漢字), one of the three scripts used in the Japanese language, are Chinese characters, which were first introduced to Japan in the 5th century via the Korean peninsula.\n\nKanji are ideograms, i.e. each character has its own meaning and corresponds to a word. By combining characters, more words can be created. For example, the combination of electricity with car means train. There are tens of thousands of characters, of which 2000 to 3000 are required to understand newspapers. A set of 2136 characters has been officially declared as the kanji for everyday use.\n\nSome examples:\n\nBefore the introduction of Chinese characters, no Japanese writing system existed. When adopting the characters, the Japanese did not only introduce the characters' original Chinese pronunciations, but also associated them with the corresponding, native Japanese words and their pronunciations. Consequently, most kanji can still be pronounced in at least two ways, a Chinese (on-yomi) and a Japanese (kun-yomi) way, which considerably further complicates the study of the Japanese language.\n\nKanji are used for writing nouns, adjectives, adverbs and verbs. But unlike the Chinese language, Japanese cannot be written entirely in kanji. For grammatical endings and words without corresponding kanji, two additional, syllable-based scripts are being used, hiragana and katakana, each consisting of 46 syllables.\n\nCalligraphy is the art of writing beautifully."
+            android:textSize="18sp"
+            android:textColor="#333333"
+            android:lineSpacingExtra="8dp"
+            android:letterSpacing="0.02"
+            android:padding="8dp"
+            android:fontFamily="serif" />
+
+        <!-- Back Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_marginBottom="16dp"
+            app:cornerRadius="16dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp"/>
+    </LinearLayout>
+</ScrollView>
