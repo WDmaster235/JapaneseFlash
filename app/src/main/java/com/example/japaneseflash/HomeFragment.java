@@ -7,6 +7,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -65,7 +66,7 @@ public class HomeFragment extends Fragment {
         // Each button calls handleClick() with its respective action
         btnKanjiMenu.setOnClickListener(v -> handleClick(v, this::navigateToKanjiMenu));
         btnSavedCards.setOnClickListener(v -> handleClick(v, this::navigateToSavedCards));
-        btnDailyReminder.setOnClickListener(v -> handleClick(v, this::scheduleDailyReminder));
+        btnDailyReminder.setOnClickListener(v -> handleClick(v, this::setDailyNotification));
         btnAbout.setOnClickListener(v -> handleClick(v, this::navigateToAbout));
 
         return view;
@@ -144,36 +145,46 @@ public class HomeFragment extends Fragment {
                 .commit();
     }
 
-    private void scheduleDailyReminder() {
+    private void setDailyNotification() {
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
+            Toast.makeText(getActivity(), "Please enable exact alarms in settings!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+            startActivity(intent);
+            return;
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE, 45);
+        calendar.set(Calendar.SECOND, 0);
+
+        // Ensure the alarm is set for the future (not immediately)
+        if (calendar.before(Calendar.getInstance())) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
         Intent intent = new Intent(getActivity(), NotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 getActivity(),
-                1,
+                0,
                 intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
 
-        // Calculate next 00:54 trigger time
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 1);
-        calendar.set(Calendar.MINUTE, 36);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        if (alarmManager != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            } else {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            }
+            Toast.makeText(getActivity(), "Daily Notification Set for " + calendar.getTime(), Toast.LENGTH_LONG).show();
         }
-        long triggerAtMillis = calendar.getTimeInMillis();
-
-        Log.d("HomeFragment", "Scheduling alarm for: " + calendar.getTime().toString());
-
-        try {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
-        } catch (SecurityException e) {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
-        }
-
-        Toast.makeText(getActivity(), "Daily reminder set for 00:54", Toast.LENGTH_SHORT).show();
     }
+
+
+
 
     /**
      * Special effect: a quick scale pulse effect on the active button.
