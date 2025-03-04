@@ -7,12 +7,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class NotificationReceiver extends BroadcastReceiver {
+
     private static final String TAG = "NotificationReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "Alarm triggered! Showing notification...");
-        Toast.makeText(context, "Alarm Triggered!", Toast.LENGTH_LONG).show(); // Debugging
+        Toast.makeText(context, "Alarm Triggered!", Toast.LENGTH_LONG).show();
         NotificationHelper.showWeatherNotification(context);
     }
 }
