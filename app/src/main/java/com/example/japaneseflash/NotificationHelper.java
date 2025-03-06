@@ -68,8 +68,8 @@ public class NotificationHelper {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Daily Kanji Reminder")
-                .setContentText("Don't forget to learn your daily Kanji!")
+                .setContentTitle("Thank you")
+                .setContentText("Bye! Hope you had fun learning!")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
