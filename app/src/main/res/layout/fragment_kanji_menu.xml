@@ -1,89 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/kanji_menu_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF8E1"
-    android:gravity="center"
-    android:orientation="vertical"
+    android:background="@drawable/yellow_gradient_background"
     android:padding="20dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/joyokanji_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/yellowAccent"
-        android:elevation="4dp"
-        android:text="Jouyou Kanji"
-        android:textColor="@android:color/black"
-        app:cornerRadius="16dp" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/grade1_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/yellowAccent"
-        android:elevation="4dp"
-        android:text="Grade 1"
-        android:textColor="@android:color/black"
-        app:cornerRadius="16dp" />
+        <!-- Header with neon glow effect -->
+        <TextView
+            android:id="@+id/header_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔥 Select Kanji Category 🔥"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:shadowColor="#AAFFFFFF"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="8"
+            android:paddingBottom="20dp"
+            android:fontFamily="sans-serif-condensed" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/grade2_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/yellowAccent"
-        android:elevation="4dp"
-        android:text="Grade 2"
-        android:textColor="@android:color/black"
-        app:cornerRadius="16dp" />
+        <!-- Juicy Buttons -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/joyokanji_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            style="@style/JuicyButton"
+            android:text="📜 Jouyou Kanji"
+            android:textColor="#000000" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/grade3_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/yellowAccent"
-        android:elevation="4dp"
-        android:text="Grade 3"
-        android:textColor="@android:color/black"
-        app:cornerRadius="16dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/grade1_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            style="@style/JuicyButton"
+            android:text="🟢 Grade 1"
+            android:textColor="#000000" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/grade4_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/yellowAccent"
-        android:elevation="4dp"
-        android:text="Grade 4"
-        android:textColor="@android:color/black"
-        app:cornerRadius="16dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/grade2_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            style="@style/JuicyButton"
+            android:text="🟡 Grade 2"
+            android:textColor="#000000" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/grade5_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/yellowAccent"
-        android:elevation="4dp"
-        android:text="Grade 5"
-        android:textColor="@android:color/black"
-        app:cornerRadius="16dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/grade3_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            style="@style/JuicyButton"
+            android:text="🟠 Grade 3"
+            android:textColor="#000000" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/grade6_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/yellowAccent"
-        android:elevation="4dp"
-        android:text="Grade 6"
-        android:textColor="@android:color/black"
-        app:cornerRadius="16dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/grade4_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            style="@style/JuicyButton"
+            android:text="🔴 Grade 4"
+            android:textColor="#000000" />
 
-</LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/grade5_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            style="@style/JuicyButton"
+            android:text="🟣 Grade 5"
+            android:textColor="#000000" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/grade6_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            style="@style/JuicyButton"
+            android:text="🟤 Grade 6"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+</ScrollView>

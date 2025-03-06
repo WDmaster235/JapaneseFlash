@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:translationX="-100dp"
         android:translationY="70dp"
-        android:text="Kanji Menu"
+        android:text="Exit"
         android:textSize="30sp"
         android:textColor="@android:color/black"
         android:backgroundTint="@color/purple_200"
@@ -44,13 +44,13 @@
 
     <!-- Daily Reminder Button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_daily_reminder"
+        android:id="@+id/Exit"
         android:layout_width="240dp"
         android:layout_height="140dp"
         android:layout_gravity="center"
         android:translationX="30dp"
         android:translationY="40dp"
-        android:text="Daily Reminder"
+        android:text="Kanji Menu"
         android:textSize="30sp"
         android:textColor="@android:color/black"
         android:backgroundTint="@color/yellowAccent"

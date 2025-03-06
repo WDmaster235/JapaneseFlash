@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/yellow_gradient_background"
     tools:context=".KanjiFlashcardFragment">
 
-    <!-- Kanji TextView -->
+    <!-- Kanji TextView with Golden Glow -->
     <TextView
         android:id="@+id/kanji_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:gravity="center"
-        android:text="Kanji"
-        android:textSize="50sp"
+        android:text="漢字"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:shadowColor="#FFEA00"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Meaning TextView -->
+    <!-- Meaning TextView with Soft Glow -->
     <TextView
         android:id="@+id/meaning_text"
         android:layout_width="wrap_content"
@@ -27,54 +35,52 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Meaning"
-        android:textSize="20sp"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:shadowColor="#FFD700"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/kanji_text" />
-
-    <!-- Ceiling Guideline for top placement -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/ceiling_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent="0.1" /> <!-- This places the guideline at 10% from the top -->
 
     <!-- Bottom Guideline for button placement -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/bottom_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent="0.9" /> <!-- This places the guideline at 90% from the top -->
+        app:layout_constraintGuide_percent="0.85" />
 
-    <!-- Next Button -->
-    <Button
+    <!-- Next Button with Rounded Corners -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/next_button"
-        android:layout_width="wrap_content"
+        style="@style/JuicyButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Next"
+        android:text="➡ Next Kanji"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Home Button -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/home_button"
-        android:layout_width="wrap_content"
+        style="@style/JuicyButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Home"
+        android:text="🏠 Home"
         app:layout_constraintBottom_toTopOf="@id/next_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Save Card Button -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/save_card_button"
-        android:layout_width="wrap_content"
+        style="@style/JuicyButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Save Card"
+        android:text="💾 Save Card"
         app:layout_constraintBottom_toTopOf="@id/home_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

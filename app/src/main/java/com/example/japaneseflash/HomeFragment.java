@@ -4,13 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +16,6 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
-
-import java.util.Calendar;
 
 public class HomeFragment extends Fragment {
 
@@ -54,18 +49,18 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        btnKanjiMenu = view.findViewById(R.id.btn_kanji_menu);
+        btnKanjiMenu = view.findViewById(R.id.Exit);
         btnSavedCards = view.findViewById(R.id.btn_saved_cards);
-        btnDailyReminder = view.findViewById(R.id.btn_daily_reminder);
+        btnDailyReminder = view.findViewById(R.id.btn_kanji_menu);
         btnAbout = view.findViewById(R.id.btn_about);
 
-        // Save original values
+        // Save each button's original translation and rotation values (as defined in XML)
         saveOriginalValues(btnKanjiMenu);
         saveOriginalValues(btnSavedCards);
         saveOriginalValues(btnDailyReminder);
         saveOriginalValues(btnAbout);
 
-        // Set up click listeners with handleClick() and corresponding navigation or action.
+        // Each button calls handleClick() with its respective action.
         btnKanjiMenu.setOnClickListener(v -> handleClick(v, this::navigateToKanjiMenu));
         btnSavedCards.setOnClickListener(v -> handleClick(v, this::navigateToSavedCards));
         btnDailyReminder.setOnClickListener(v -> handleClick(v, this::setDailyNotification));
@@ -75,7 +70,7 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * Save original translationX, translationY, and rotation values in the view's tag.
+     * Stores the original translationX, translationY, and rotation values in the view's tag.
      */
     private void saveOriginalValues(View view) {
         OriginalPosition pos = new OriginalPosition(view.getTranslationX(), view.getTranslationY(), view.getRotation());
@@ -83,7 +78,8 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * If the card is not active, raise it. If it is active, perform a special effect then execute the action.
+     * If the card is not active, raise it.
+     * If it is active, perform a special effect then execute the provided action.
      */
     private void handleClick(View card, Runnable action) {
         if (card != currentActiveCard) {
@@ -98,7 +94,7 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * Resets the given card to its original translation and rotation values.
+     * Resets the given card back to its original translation and rotation values.
      */
     private void resetCard(View card) {
         OriginalPosition pos = (OriginalPosition) card.getTag();
@@ -106,7 +102,7 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * Animates a view to the target translationX, translationY, and rotation.
+     * Animates a view to the target translationX, translationY, and rotation values.
      */
     private void moveCardAndRotateTo(View card, float targetX, float targetY, float targetRotation) {
         ObjectAnimator animX = ObjectAnimator.ofFloat(card, "translationX", targetX);
@@ -146,7 +142,7 @@ public class HomeFragment extends Fragment {
 
     /**
      * Schedules a daily notification at a specific time.
-     * For example, schedules for 9:43 AM every day.
+     * For example, schedules for 19:26 every day.
      */
     private void setDailyNotification() {
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
@@ -155,46 +151,18 @@ public class HomeFragment extends Fragment {
             return;
         }
 
-        // For Android S and above, check if exact alarms are allowed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
-            Toast.makeText(getActivity(), "Please enable exact alarms in settings!", Toast.LENGTH_LONG).show();
-            Intent settingsIntent = new Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
-            startActivity(settingsIntent);
-            return;
-        }
+        // Schedule notification 10 seconds from now for testing
+        long triggerTime = System.currentTimeMillis() + 10 * 1000;
 
-        Calendar calendar = Calendar.getInstance();
-        // Set desired time, e.g., 9:43 AM local time.
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 15);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
+        NotificationHelper.showDailyNotification(getActivity(), triggerTime, 0);
 
-        // If the desired time has already passed today, schedule for tomorrow.
-        if (calendar.before(Calendar.getInstance())) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
-        }
+        Toast.makeText(getActivity(), "Notification scheduled! Exiting app...", Toast.LENGTH_LONG).show();
+        Log.d(TAG, "Alarm set successfully. Exiting app...");
 
-        long scheduledTime = calendar.getTimeInMillis();
-        Log.d(TAG, "Scheduling daily notification for: " + calendar.getTime());
-
-        Intent intent = new Intent(getActivity(), NotificationReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                getActivity(),
-                0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, scheduledTime, pendingIntent);
-        } else {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, scheduledTime, pendingIntent);
-        }
-
-        Toast.makeText(getActivity(), "Daily Notification Set for " + calendar.getTime(), Toast.LENGTH_LONG).show();
-        Log.d(TAG, "Alarm set successfully.");
+        // Exit the app
+        getActivity().finishAffinity();
     }
+
 
 
     /**
