@@ -44,6 +44,12 @@ public class KanjiAdapter extends RecyclerView.Adapter<KanjiAdapter.KanjiViewHol
             }
         });
     }
+    public void updateData(List<Kanji> newKanjiList) {
+        this.kanjiList.clear();
+        this.kanjiList.addAll(newKanjiList);
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getItemCount() {

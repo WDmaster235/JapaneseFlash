@@ -53,6 +53,18 @@ public class Kanji {
     public void setHiraganaReadings(List<String> hiraganaReadings) {
         this.hiraganaReadings = hiraganaReadings;
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Kanji kanji = (Kanji) obj;
+        return character.equals(kanji.character); // Compare Kanji characters
+    }
+
+    @Override
+    public int hashCode() {
+        return character.hashCode(); // Hash based on Kanji character
+    }
 
     public List<String> getKatakanaReadings() {
         return katakanaReadings;
